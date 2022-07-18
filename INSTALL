@@ -1,15 +1,22 @@
+INSTALL SCRIPT AND CONFIGURATION
+---------------------------------
 cp -av switch-wifi.sh /usr/bin/
 cp switch-wifi.conf /etc/
 
+CRON JOB SETUP
+--------------
 $crontab -e
-
 add below entry
 * * * * * /usr/bin/switch-wifi.sh >> /var/tmp/switch-wifi.log
 
 
+LOGROTATE SETUP
+---------------
 /etc/logrotate.d/switch-wifi
 /var/tmp/switch-wifi.log {
+  maxsize 10K
   rotate 5
+  su root root
   monthly
   compress
   missingok
