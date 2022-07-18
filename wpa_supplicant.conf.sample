@@ -1,0 +1,15 @@
+ctrl_interface=/var/run/wpa_supplicant
+#ctrl_interface_group=0
+update_config=1
+
+network={
+	ssid="SSID"
+	psk="PLAINPASSWORD"
+	#password=hash:6b558b8c17f89b07f823340a74368f61 
+	proto=RSN
+	key_mgmt=WPA-PSK
+	pairwise=CCMP
+	auth_alg=OPEN
+	group=CCMP
+	#id_str=""
+}
