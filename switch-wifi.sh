@@ -8,20 +8,22 @@ IP=$(ip addr show dev wlan1 | grep inet -w | awk '{print $2}')
 current_file=$(readlink -f /etc/wpa_supplicant/wpa_supplicant.conf)
 
 echo current profile $current_file
-ping -c 5 $ping_domain
-if [ $? -eq 0 ]; then
-	echo "Internet is working no swithcing required"
-	exit 1
+if [ "$FORCE_SWITCH" = "force" ]; then 
+	shift; 
 else
-	FORCE_SWITCH=force
+	ping -c 5 $ping_domain
+	if [ $? -eq 0 ]; then
+		echo "Internet is working no switching required"
+		exit 1
+	else
+		FORCE_SWITCH=force
+	fi
 fi
 
 if [ "$FORCE_SWITCH" != "force" -a -n "$IP" ]; then
 	echo "Link is up with connection $current_file"
 	exit 0
 fi
-
-if [ "$FORCE_SWITCH" = "force" ]; then shift; fi #to get the order as argument
 
 order=("${wpa_order[@]}")
 

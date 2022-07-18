@@ -1,14 +1,13 @@
 INSTALL SCRIPT AND CONFIGURATION
 ---------------------------------
 cp -av switch-wifi.sh /usr/bin/
-cp switch-wifi.conf /etc/
+cp config/switch-wifi.conf /etc/
 
 CRON JOB SETUP
 --------------
 $crontab -e
 add below entry
 * * * * * /usr/bin/switch-wifi.sh >> /var/tmp/switch-wifi.log
-
 
 LOGROTATE SETUP
 ---------------
@@ -22,3 +21,7 @@ LOGROTATE SETUP
   missingok
   notifempty
 }
+
+Network setup for WLAN
+----------------------
+cp config/wlan1 /etc/network/interfaces.d/
