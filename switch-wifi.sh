@@ -23,7 +23,7 @@ fi
 
 if [ "$FORCE_SWITCH" = "force" ]; then shift; fi #to get the order as argument
 
-order=${wpa_order[@]}
+order=("${wpa_order[@]}")
 
 for i in $(seq 0 ${#order[@]})
 do
@@ -39,6 +39,7 @@ do
 done
 
 ln -sf $current_file /etc/wpa_supplicant/wpa_supplicant.conf
+echo new profile $current_file
 
 systemctl stop wpa_supplicant
 pkill wpa_supplicant
