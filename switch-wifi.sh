@@ -1,10 +1,14 @@
 #!/bin/bash
 
+source  /etc/switch-wifi.conf
+
+date
 FORCE_SWITCH=$1
 IP=$(ip addr show dev wlan1 | grep inet -w | awk '{print $2}')
 current_file=$(readlink -f /etc/wpa_supplicant/wpa_supplicant.conf)
 
-ping -c 5 google.com
+echo current profile $current_file
+ping -c 5 $ping_domain
 if [ $? -eq 0 ]; then
 	echo "Internet is working no swithcing required"
 	exit 1
@@ -19,7 +23,7 @@ fi
 
 if [ "$FORCE_SWITCH" = "force" ]; then shift; fi #to get the order as argument
 
-order=$@
+order=${wpa_order[@]}
 
 for i in $(seq 0 ${#order[@]})
 do

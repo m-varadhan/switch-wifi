@@ -1,0 +1,17 @@
+cp -av switch-wifi.sh /usr/bin/
+cp switch-wifi.conf /etc/
+
+$crontab -e
+
+add below entry
+* * * * * /usr/bin/switch-wifi.sh >> /var/tmp/switch-wifi.log
+
+
+/etc/logrotate.d/switch-wifi
+/var/tmp/switch-wifi.log {
+  rotate 5
+  monthly
+  compress
+  missingok
+  notifempty
+}
